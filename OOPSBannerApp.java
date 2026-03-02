@@ -1,29 +1,32 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class OOPSBannerApp {
 
     public static void main(String[] args) {
 
-        String[] O = getOPattern();
-        String[] P = getPPattern();
-        String[] S = getSPattern();
+        String message = "OOPS";
 
-        String[] banner = {
-                String.join(" ", O[0], O[0], P[0], S[0]),
-                String.join(" ", O[1], O[1], P[1], S[1]),
-                String.join(" ", O[2], O[2], P[2], S[2]),
-                String.join(" ", O[3], O[3], P[3], S[3]),
-                String.join(" ", O[4], O[4], P[4], S[4]),
-                String.join(" ", O[5], O[5], P[5], S[5]),
-                String.join(" ", O[6], O[6], P[6], S[6])
-        };
+        Map<Character, String[]> patternMap = initializePatterns();
 
-        for (String line : banner) {
+        for (int row = 0; row < 7; row++) {
+
+            StringBuilder line = new StringBuilder();
+
+            for (char ch : message.toCharArray()) {
+                String[] pattern = patternMap.get(ch);
+                line.append(pattern[row]).append(" ");
+            }
+
             System.out.println(line);
         }
     }
 
-    // Helper method for O
-    private static String[] getOPattern() {
-        return new String[] {
+    private static Map<Character, String[]> initializePatterns() {
+
+        Map<Character, String[]> map = new HashMap<>();
+
+        map.put('O', new String[]{
                 "  *****  ",
                 " *     * ",
                 "*       *",
@@ -31,12 +34,9 @@ public class OOPSBannerApp {
                 "*       *",
                 " *     * ",
                 "  *****  "
-        };
-    }
+        });
 
-    // Helper method for P
-    private static String[] getPPattern() {
-        return new String[] {
+        map.put('P', new String[]{
                 " ****** ",
                 " *     * ",
                 " *     * ",
@@ -44,19 +44,18 @@ public class OOPSBannerApp {
                 " *       ",
                 " *       ",
                 " *       "
-        };
-    }
+        });
 
-    // Helper method for S
-    private static String[] getSPattern() {
-        return new String[] {
-                "   ***** ",
+        map.put('S', new String[]{
+                "   ****** ",
                 " *       ",
                 " *       ",
                 "   *****  ",
                 "       * ",
                 "       * ",
                 "  ***** "
-        };
+        });
+
+        return map;
     }
 }
