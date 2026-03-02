@@ -1,8 +1,32 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class OOPSBannerApp {
 
     public static void main(String[] args) {
 
-        CharacterPattern O = new CharacterPattern('O', new String[]{
+        String message = "OOPS";
+
+        Map<Character, String[]> patternMap = initializePatterns();
+
+        for (int row = 0; row < 7; row++) {
+
+            StringBuilder line = new StringBuilder();
+
+            for (char ch : message.toCharArray()) {
+                String[] pattern = patternMap.get(ch);
+                line.append(pattern[row]).append(" ");
+            }
+
+            System.out.println(line);
+        }
+    }
+
+    private static Map<Character, String[]> initializePatterns() {
+
+        Map<Character, String[]> map = new HashMap<>();
+
+        map.put('O', new String[]{
                 "  *****  ",
                 " *     * ",
                 "*       *",
@@ -12,39 +36,26 @@ public class OOPSBannerApp {
                 "  *****  "
         });
 
-        CharacterPattern P = new CharacterPattern('P', new String[]{
-                " ****** ",
-                " *     * ",
-                " *     * ",
-                " ****** ",
+        map.put('P', new String[]{
+                "  ****** ",
+                " *      * ",
+                " *      * ",
+                "  ****** ",
                 " *       ",
                 " *       ",
                 " *       "
         });
 
-        CharacterPattern S = new CharacterPattern('S', new String[]{
-                "   ***** ",
+        map.put('S', new String[]{
+                "   ****** ",
                 " *       ",
                 " *       ",
                 "   *****  ",
-                "       * ",
-                "       * ",
-                "  ***** "
+                "        * ",
+                "        * ",
+                "  ****** "
         });
 
-        String[] banner = new String[7];
-
-        for (int i = 0; i < 7; i++) {
-            banner[i] = String.join(" ",
-                    O.getPattern()[i],
-                    O.getPattern()[i],
-                    P.getPattern()[i],
-                    S.getPattern()[i]
-            );
-        }
-
-        for (String line : banner) {
-            System.out.println(line);
-        }
+        return map;
     }
 }
